@@ -5,7 +5,7 @@ img{max-width:100%;display:block}a{color:inherit}
 .wrap{width:min(1200px,100% - 40px);margin-inline:auto}
 .skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:#fff;padding:8px;z-index:99}
 h1,h2,h3{font-family:var(--f1);font-weight:500;line-height:1.08;letter-spacing:-.015em;margin:0 0 .5em}
-h1{font-size:clamp(2.3rem,5.2vw,4.4rem)}h1 em{font-style:italic;color:var(--teal)}
+h1{font-size:clamp(2.2rem,4.4vw,3.7rem)}h1 em{font-style:italic;color:var(--teal)}
 h2{font-size:clamp(1.7rem,3vw,2.6rem)}
 .kicker{font:600 .78rem/1 var(--f2);letter-spacing:.16em;text-transform:uppercase;color:var(--clay);margin:0 0 1.1em}
 .lead{font-size:1.15rem;color:var(--ink2);max-width:58ch}
@@ -33,7 +33,7 @@ h2{font-size:clamp(1.7rem,3vw,2.6rem)}
 .proof{display:flex;gap:34px;list-style:none;padding:24px 0 0;margin:0;border-top:1px solid var(--line)}
 .proof b{display:block;font:500 2rem/1 var(--f1);color:var(--teal)}.proof span{font-size:.82rem;color:var(--ink2)}
 .hero-img{margin:0;position:relative}
-.hero-img img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:220px 220px var(--r) var(--r)}
+.hero-img img{width:100%;aspect-ratio:1/1.08;object-fit:cover;border-radius:220px 220px var(--r) var(--r)}
 .hero-img figcaption{position:absolute;left:-22px;bottom:34px;background:#fff;padding:14px 18px;border-radius:10px;font-size:.88rem;box-shadow:0 18px 40px rgba(20,32,31,.14)}
 .hero-img figcaption span{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
 .swatch{display:grid;grid-template-columns:repeat(6,1fr);height:12px}

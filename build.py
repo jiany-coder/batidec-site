@@ -23,13 +23,13 @@ NAV = [("/prestations/", "Prestations"), ("/projets/", "Réalisations"),
 
 SERVICES = [
     ("peinture-rouen", "Peinture intérieure et extérieure", "Peinture",
-     "Murs, plafonds, boiseries, cages d'escalier, locaux pros.", "cuisine.jpg"),
+     "Murs, plafonds, boiseries, cages d'escalier, locaux pros.", "cuisine.jpg", "Cuisine repeinte par Batidec chez une particulière à Rouen"),
     ("ravalement-facade-rouen", "Ravalement de façade", "Façade",
-     "Nettoyage, réparation et mise en peinture des façades.", "120760763_620030982004693_4593063110375373801_n.jpeg"),
+     "Nettoyage, réparation et mise en peinture des façades.", "120760763_620030982004693_4593063110375373801_n.jpeg", "Façade des locaux Batidec, rue du Mail à Rouen"),
     ("decoration-interieur-rouen", "Décoration intérieure", "Décoration",
-     "Couleurs, matières, papiers peints, effets décoratifs.", "dressing-finale-rotated.jpg"),
+     "Couleurs, matières, papiers peints, effets décoratifs.", "dressing-finale-rotated.jpg", "Dressing sur mesure réalisé par Batidec, projet de Mme L."),
     ("agencement-commerce-rouen", "Agencement de commerces", "Agencement",
-     "Bars, restaurants, boutiques : du plan à l'ouverture.", "salle-2-rotated.jpg"),
+     "Bars, restaurants, boutiques : du plan à l'ouverture.", "salle-2-rotated.jpg", "Brasserie Le Central à Rouen, agencée par Batidec"),
 ]
 
 LOCAL = {
@@ -150,7 +150,7 @@ home_faq = [
      "Batidec est basée rue du Mail, à Rouen (76100), et intervient à Rouen pour les particuliers, les copropriétés et les commerces."),
 ]
 svc_cards = "".join(f'''<a class="svc" href="/{s[0]}/"><span class="svc-n">N°0{i+1}</span>
-<img src="{I(s[4])}" alt="{s[1]} par Batidec à Rouen" loading="lazy" width="480" height="560">
+<img src="{I(s[4])}" alt="{s[5]}" loading="lazy" width="480" height="560">
 <span class="svc-b"><span class="svc-t">{s[1]}</span><span class="svc-d">{s[3]}</span><span class="svc-l">Découvrir</span></span></a>''' for i, s in enumerate(SERVICES))
 
 home = f'''
@@ -382,5 +382,5 @@ page("/mentions-legales/", "Mentions légales | Batidec, peintre décorateur à 
     + "".join(f"<url><loc>{SITE}{p}</loc><lastmod>2026-11-18</lastmod></url>" for p in PAGES) + "</urlset>\n")
 (OUT / "llms.txt").write_text(f"# Batidec\n\n> {CANON}\n\n- Adresse : {ADR}\n- Téléphone : {TEL}\n- Horaires : lundi au vendredi, 9 h à 17 h\n- Création : 1972 (Hamyne Abdou) ; dirigeant depuis 2006 : Marphour Hassan\n\n## Pages\n"
     + "".join(f"- [{p}]({SITE}{p})\n" for p in PAGES))
-(OUT / "_redirects").write_text("/project/* /projets/ 301\n/projets /projets/ 301\n")
+(OUT / "_redirects").write_text("/project/* /projets/ 301\n")
 print("ok", len(PAGES), "pages")
