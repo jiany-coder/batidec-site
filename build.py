@@ -224,7 +224,7 @@ def service_page(slug, title, desc, h1, kicker, direct, img, img_alt, sections, 
 <figure class="phero-img"><img src="{I(img)}" alt="{img_alt}" fetchpriority="high"></figure></div></section>
 <div class="wrap art"><article class="prose">{secs}
 <h2>Batidec en repères</h2><table class="facts">{rows}</table>
-<h2>Questions fréquentes</h2>{faq_html(faq)}</article>
+<h2>Questions fréquentes</h2>{faq_html(faq)}<p class="small byline">Contenu rédigé par Batidec, entreprise familiale de Rouen dirigée par Marphour Hassan depuis 2006, formé auprès du fondateur Hamyne Abdou. Mise à jour : 18 novembre 2026.</p></article>
 <aside class="side"><div class="side-card"><p class="ft-h">Votre devis</p><p>Visite et devis gratuits à Rouen.</p>
 <a class="btn btn-block" href="/contact/">Demander un devis</a><a class="btn btn-ghost btn-block" href="tel:{TEL_L}">{TEL}</a>
 <p class="small">Lun. au ven., 9 h à 17 h<br>{ADR}</p></div>
@@ -233,6 +233,7 @@ def service_page(slug, title, desc, h1, kicker, direct, img, img_alt, sections, 
 {cta_band()}'''
     page(f"/{slug}/", title, desc, body,
          (faq_ld(faq), crumbs([("/", "Accueil"), ("/prestations/", "Prestations"), (f"/{slug}/", kicker)]),
+          {"@context": "https://schema.org", "@type": "WebPage", "url": SITE + f"/{slug}/", "dateModified": "2026-11-18", "author": {"@id": SITE + "/#entreprise"}},
           {"@context": "https://schema.org", "@type": "Service", "name": h1, "serviceType": kicker,
            "provider": {"@id": SITE + "/#entreprise"}, "areaServed": {"@type": "City", "name": "Rouen"}}), img)
 

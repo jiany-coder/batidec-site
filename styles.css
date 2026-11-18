@@ -144,3 +144,4 @@ body{font-size:16px;padding-bottom:68px}
 .mbar-tel{background:var(--ink);color:#fff}.mbar-dev{background:var(--teal);color:#fff}
 }
 .quote{font:italic 400 1.2rem/1.45 var(--f1);color:var(--cream);border-left:3px solid var(--clay);padding:4px 0 4px 20px;margin:0 0 26px}.quote cite{display:block;font:500 .82rem var(--f2);font-style:normal;color:#9fb0ad;margin-top:10px}
+.byline{margin-top:36px;padding-top:16px;border-top:1px solid var(--line)}
