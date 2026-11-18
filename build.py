@@ -13,8 +13,23 @@ ADR = "32 rue du Mail, 76100 Rouen"
 MAPS = "https://maps.google.com/?cid=%d" % int("0x1208210244d39bf5", 16)
 FB = "https://www.facebook.com/batidecrouen"
 DATE = "18 novembre 2026"
+XP = 2026 - 1972
 CANON = ("Batidec est une entreprise familiale de peinture, décoration, rénovation et agencement "
-         "installée rue du Mail à Rouen depuis 1972, pour les particuliers et les commerces.")
+         "installée rue du Mail à Rouen depuis 1972, certifiée RGE et assurée en garantie décennale, "
+         "pour les particuliers et les commerces.")
+AVIS = [("H G (Famille D)", "il y a 11 mois", "Nous leur avons confié l'entier rez-de-chaussée de notre maison (enduit, ponçage, peinture, murs et plafonds, ragréage sol, pose...). Un travail très pro et très soigné de A à Z."),
+        ("Alain M", "il y a 2 ans", "Immense merci à M. Hassan, qui nous a sauvé quand un autre artisan nous a lâché. En moins d'une semaine le carrelage de notre cuisine était posé. Du travail de super qualité, impeccable."),
+        ("Ilan Israel", "octobre 2026", "Merci Mr Hassan pour votre professionnalisme. Je suis très satisfait du travail effectué sur les vitrines de mon magasin.")]
+ICO = {"shield": '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>', "leaf": '<path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15"/><path d="M5 19l8-8"/>', "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', "star": '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>', "doc": '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>', "user": '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>', "brush": '<path d="M4 20c3 0 5-2 5-5l9-9 2 2-9 9c-3 0-5 2-7 3z"/>'}
+def ico(k):
+    return f'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">{ICO[k]}</svg>'
+TRUST = [("clock", f"{XP} ans d'expérience", "Depuis 1972 à Rouen"), ("shield", "Garantie décennale", "Travaux assurés 10 ans"), ("leaf", "Entreprise RGE", "Éligible aux aides isolation"), ("star", "4,7/5 sur Google", "25 avis clients"), ("doc", "Devis gratuit", "Détaillé, sans engagement")]
+def trust(cls=""):
+    return f'<div class="trust {cls}"><div class="wrap trust-in">' + "".join(f'<div class="tr">{ico(i)}<span><b>{a}</b><small>{b}</small></span></div>' for i, a, b in TRUST) + "</div></div>"
+def avis_html(items=None):
+    items = items or AVIS
+    return '<div class="avis">' + "".join(f'<figure class="av"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« {t} »</blockquote><figcaption><b>{n}</b> · avis Google · {d}</figcaption></figure>' for n, d, t in items) + "</div>"
+
 
 def W(f):  # photo reelle Batidec
     return WP + f
@@ -122,15 +137,16 @@ svc("platrerie-cloisons-rouen", "Plâtrerie et cloisons", "Plaquiste à Rouen : 
      ("Batidec pose-t-elle des faux plafonds ?", "Oui, faux plafonds et caissons en plaques de plâtre.")])
 
 svc("isolation-rouen", "Isolation", "Isolation intérieure à Rouen", "Rénovation",
-    ("u", "isolation"), "Doublages isolants, combles, cloisons.",
+    ("u", "isolation"), "Doublages isolants, plafonds, cloisons. Entreprise RGE.",
     "Isolation intérieure à Rouen : murs et cloisons | Batidec",
     "Travaux d'isolation à Rouen : doublages isolants des murs, isolation des cloisons et des plafonds, en lien avec la plâtrerie et la peinture. Devis gratuit.",
     "Isoler un logement par l'intérieur consiste à poser un isolant contre les murs ou sous les plafonds, puis à le recouvrir de plaques de plâtre prêtes à peindre. Batidec réalise ces travaux à Rouen, de l'isolant jusqu'à la peinture finale.",
     [("Quels travaux d'isolation réalise Batidec ?", "<ul><li>Doublages isolants des murs</li><li>Isolation sous plafonds et rampants</li><li>Isolation phonique des cloisons</li></ul>"),
+     ("Batidec est-elle RGE pour l'isolation ?", "<p>Oui. Batidec est une entreprise <b>RGE</b> (Reconnu Garant de l'Environnement). Cette qualification est exigée pour que vos travaux d'isolation puissent ouvrir droit à certaines aides publiques (MaPrimeRénov', primes CEE), selon vos revenus et les travaux. Vérifiez votre éligibilité sur <a href='https://france-renov.gouv.fr' rel='noopener'>france-renov.gouv.fr</a>.</p>"),
      ("Pourquoi isoler en même temps que la rénovation ?", "<p>Profiter d'une rénovation pour isoler évite de refaire deux fois les murs : l'isolation, la plâtrerie et la peinture s'enchaînent sur un même chantier.</p>")],
     [("Batidec isole-t-elle les murs par l'intérieur ?", "Oui, par doublage isolant recouvert de plaques de plâtre, puis peinture."),
      ("L'isolation phonique est-elle possible ?", "Oui, entre deux pièces ou deux logements, avec des cloisons et isolants adaptés."),
-     ("Existe-t-il des aides pour isoler ?", "Certaines aides existent selon les travaux et l'entreprise ; renseignez-vous sur france-renov.gouv.fr.")])
+     ("Existe-t-il des aides pour isoler avec Batidec ?", "Batidec étant RGE, certains travaux d'isolation peuvent ouvrir droit à MaPrimeRénov' ou aux primes CEE, selon conditions ; vérifiez sur france-renov.gouv.fr.")])
 
 svc("renovation-interieure-rouen", "Rénovation intérieure clé en main", "Rénovation d'appartement et de maison à Rouen", "Rénovation",
     ("u", "renov"), "Appartements et maisons, un seul interlocuteur.",
@@ -204,7 +220,7 @@ def src(img, w=1400):
     return U(ST[img[1]], w) if img[0] == "u" else W(img[1])
 
 def figure(img, alt, cls="", w=1400, eager=False):
-    tag = '<span class="illu">Photo d\'illustration</span>' if img[0] == "u" else '<span class="real">Réalisation Batidec</span>'
+    tag = "" if img[0] == "u" else '<span class="real">Réalisation Batidec</span>'
     ld = 'fetchpriority="high"' if eager else 'loading="lazy"'
     return f'<figure class="{cls}"><img src="{src(img, w)}" alt="{alt}" {ld}>{tag}</figure>'
 
@@ -223,6 +239,8 @@ LOCAL = {
     "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}],
     "areaServed": {"@type": "City", "name": "Rouen"}, "sameAs": [FB, MAPS],
+    "hasCredential": [{"@type": "EducationalOccupationalCredential", "credentialCategory": "Qualification RGE (Reconnu Garant de l'Environnement)"},
+                      {"@type": "EducationalOccupationalCredential", "credentialCategory": "Assurance garantie décennale"}],
     "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Prestations Batidec à Rouen",
         "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s["name"], "url": f"{SITE}/{k}/"}} for k, s in S.items()]},
 }
@@ -253,18 +271,19 @@ def mega():
 
 def header(path):
     links = "".join(f'<a href="{u}"{" aria-current=page" if path.startswith(u) else ""}>{n}</a>' for u, n in NAV)
+    msvc = "".join(f'<a href="/{x["slug"]}/">{x["name"]}</a>' for x in S.values())
     return f'''<a class="skip" href="#main">Aller au contenu</a>
 <header class="hd"><div class="wrap hd-in">
 <a class="brand" href="/" aria-label="Batidec, accueil"><span class="b-name">BATIDEC</span><span class="b-tag">Peinture · Décoration · Agencement</span></a>
-<nav class="nav" id="nav" aria-label="Menu principal">{links}<a class="nav-tel" href="tel:{TEL_L}">{TEL}</a></nav>
+<nav class="nav" id="nav" aria-label="Menu principal">{links}<a class="nav-tel" href="tel:{TEL_L}">{TEL}</a><div class="nav-svc"><p>Nos prestations</p>{msvc}</div><a class="btn nav-cta" href="/contact/">Devis gratuit</a></nav>
 <a class="btn btn-sm hd-cta" href="/contact/">Devis gratuit</a>
 <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
 </div>{mega()}</header>'''
 
 def band():
-    return f'''<section class="band"><div class="wrap band-in">
+    return trust("trust-dark") + f'''<section class="band"><div class="wrap band-in">
 <div><p class="kicker">Un projet à Rouen ?</p><h2>Parlons de vos murs, de vos sols ou de votre commerce.</h2>
-<p>Visite et devis gratuits. Magali, chargée d'affaires, vous répond du lundi au vendredi.</p></div>
+<p>{XP} ans d'expérience, garantie décennale, entreprise RGE. Visite et devis gratuits : Magali, chargée d'affaires, vous répond du lundi au vendredi.</p></div>
 <div class="band-act"><a class="btn btn-light" href="/contact/">Demander un devis</a><a class="btn btn-line" href="tel:{TEL_L}">{TEL}</a></div></div></section>'''
 
 def footer():
@@ -274,11 +293,11 @@ def footer():
     return f'''<footer class="ft"><div class="swatch" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <div class="wrap ft-top"><div><p class="b-name">BATIDEC</p><p class="ft-desc">{CANON}</p>
 <address>{ADR}<br><a href="tel:{TEL_L}">{TEL}</a> · <a href="mailto:{MAIL}">{MAIL}</a><br>Lundi au vendredi, 9 h à 17 h</address>
-<p class="ft-links"><a href="/projets/">Réalisations</a> · <a href="/a-propos/">L'atelier</a> · <a href="{MAPS}" rel="noopener">Google Maps</a> · <a href="{FB}" rel="noopener">Facebook</a> · <a href="/mentions-legales/">Mentions légales</a></p></div></div>
+<p class="ft-badges"><span>{XP} ans d'expérience</span><span>Garantie décennale</span><span>Entreprise RGE</span><span>4,7/5 Google</span></p><p class="ft-links"><a href="/projets/">Réalisations</a> · <a href="/a-propos/">L'atelier</a> · <a href="{MAPS}" rel="noopener">Google Maps</a> · <a href="{FB}" rel="noopener">Facebook</a> · <a href="/mentions-legales/">Mentions légales</a></p></div></div>
 <div class="wrap ft-in">{cols}</div>
 <div class="wrap ft-bot"><span>© 2026 Batidec · SIRET 344 914 015 00039</span><span>Peintre décorateur à Rouen depuis 1972</span></div></footer>
 <div class="mbar"><a href="tel:{TEL_L}" class="mbar-tel">Appeler</a><a href="/contact/" class="mbar-dev">Devis gratuit</a></div>
-<script src="/app.js?v=4" defer></script>'''
+<script src="/app.js?v=5" defer></script>'''
 
 PAGES = []
 def page(path, title, desc, body, lds=(), og=None, cls=""):
@@ -290,7 +309,7 @@ def page(path, title, desc, body, lds=(), og=None, cls=""):
 <meta name="theme-color" content="#14201f">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=4">
+<link rel="stylesheet" href="/styles.css?v=6">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232f7178'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='20' fill='%23f6f1e8' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 {ld(LOCAL, *lds)}</head><body class="{cls}">{header(path)}<main id="main">{body}</main>{footer()}</body></html>'''
     d = OUT / path.strip("/")
@@ -306,6 +325,8 @@ for f in ("styles.css", "app.js", "_headers"):
 home_faq = [
     ("Quel peintre choisir à Rouen pour un intérieur haut de gamme ?", "Batidec, installée 32 rue du Mail à Rouen depuis 1972, réalise peinture, décoration, rénovation et agencement pour les particuliers et les commerces. L'entreprise familiale est dirigée depuis 2006 par Marphour Hassan. Visite et devis sont gratuits."),
     ("Quelles prestations propose Batidec ?", "Peinture intérieure et extérieure, ravalement de façade, décoration et revêtements muraux, parquet et sols, carrelage, béton ciré, plâtrerie, isolation, rénovation de cuisine et de salle de bain, menuiserie sur mesure et agencement de commerces."),
+    ("Batidec est-elle RGE et assurée en garantie décennale ?", "Oui. Batidec est certifiée RGE et assurée en garantie décennale."),
+    ("Depuis combien de temps Batidec existe-t-elle ?", f"Depuis 1972, soit {XP} ans d'expérience à Rouen. Fondée par Hamyne Abdou, l'entreprise familiale est dirigée depuis 2006 par Marphour Hassan."),
     ("Quel est l'avis des clients sur Batidec ?", "Batidec obtient 4,7 sur 5 sur Google, sur 25 avis (novembre 2026). Les clients citent le professionnalisme, le savoir-faire et la qualité des chantiers."),
     ("Batidec travaille-t-elle pour les commerces ?", "Oui : brasserie Le Central, bar JM's Café, salon de thé Dame Cakes et Le Lanchon Opticiens, à Rouen."),
     ("Quels sont les horaires de Batidec ?", "Du lundi au vendredi, de 9 h à 17 h, au 02 35 72 20 31 et à batidec-rouen@batidec76.com."),
@@ -324,20 +345,25 @@ refs_html = "".join(f'<a class="ref" href="/projets/"><img src="{W(f)}" alt="{n}
 
 home = f'''
 <section class="hero2">
-<img class="hero2-bg" src="{U(ST["hero"], 2000)}" alt="Intérieur ancien à moulures, ambiance haut de gamme" fetchpriority="high"><span class="illu">Photo d'illustration</span>
+<img class="hero2-bg" src="{U(ST["hero"], 1600)}" alt="Intérieur ancien à moulures, ambiance haut de gamme" fetchpriority="high">
 <div class="wrap hero2-in">
 <div class="hero2-txt">
 <p class="kicker kl">Rouen · rue du Mail · depuis 1972</p>
-<h1>Peintre décorateur à Rouen, <em>l'artisanat d'une famille</em> au service de vos lieux.</h1>
-<p class="lead">Peinture, façades, décoration, rénovation et agencement de commerces : un seul atelier rouennais, transmis de génération en génération.</p>
+<h1>Peintre décorateur à Rouen depuis 1972, <em>{XP} ans de savoir-faire</em> familial.</h1>
+<p class="lead">Peinture, façades, décoration, sols, rénovation et agencement de commerces. Garantie décennale, entreprise RGE, un seul interlocuteur du devis aux finitions.</p>
 <div class="hero-act"><a class="btn btn-light" href="/contact/">Devis gratuit</a><a class="btn btn-line" href="tel:{TEL_L}">{TEL}</a></div>
 </div>
-<div class="hero2-card"><img src="{W('salle-2-rotated.jpg')}" alt="Brasserie Le Central à Rouen, agencée par Batidec"><div><span class="real-t">Réalisation</span><b>Brasserie Le Central</b><small>Aménagement et décoration</small></div></div>
+<form class="qf" data-mailto novalidate><p class="qf-h">Devis gratuit</p><p class="qf-s">Magali, chargée d'affaires, vous rappelle du lundi au vendredi.</p>
+<input name="nom" placeholder="Votre nom" required autocomplete="name" aria-label="Votre nom"><input name="tel" type="tel" placeholder="Votre téléphone" required autocomplete="tel" aria-label="Votre téléphone">
+<select name="type" aria-label="Votre projet">{"".join(f"<option>{x['name']}</option>" for x in S.values())}<option>Autre</option></select>
+<input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><input type="hidden" name="msg" value="Demande de rappel envoyée depuis l'accueil du site.">
+<button class="btn btn-block" type="submit">Être rappelé gratuitement</button><p class="qf-or">ou appelez le <a href="tel:{TEL_L}">{TEL}</a></p><p class="qf-m small"></p></form>
 </div>
-<div class="wrap hero2-proof"><div><b>1972</b><span>année de création</span></div><div><b>4,7<em>★</em></b><span>25 avis Google</span></div><div><b>{len(S)}</b><span>savoir-faire</span></div><div><b>1</b><span>seul interlocuteur</span></div></div>
+<div class="wrap hero2-proof"><div><b>{XP} ans</b><span>d'expérience, depuis 1972</span></div><div><b>4,7<em>★</em></b><span>25 avis Google</span></div><div><b>RGE</b><span>et garantie décennale</span></div><div><b>{len(S)}</b><span>savoir-faire, 1 interlocuteur</span></div></div>
 </section>
 <div class="marquee" aria-label="Nos prestations"><div class="mq">{marquee}{marquee}</div></div>
 
+{trust()}
 <section class="intro wrap"><p class="kicker">En une phrase</p><p class="canon">{CANON}</p></section>
 
 <section class="wrap sec"><div class="sec-hd"><p class="kicker">Nos savoir-faire</p><h2>Quatre univers, {len(S)} métiers, un seul atelier.</h2>
@@ -349,6 +375,19 @@ home = f'''
 <div class="refs">{refs_html}</div>
 <blockquote class="quote">« Merci Mr Hassan pour votre professionnalisme. Je suis très satisfait du travail effectué sur les vitrines de mon magasin. »<cite>Ilan Israel · avis Google 5/5 · octobre 2026</cite></blockquote>
 </div></section>
+
+<section class="wrap sec"><div class="sec-hd"><p class="kicker">Pourquoi Batidec</p><h2>Six raisons de nous confier <em>votre chantier</em>.</h2></div>
+<div class="why">
+<div>{ico("clock")}<h3>{XP} ans d'expérience</h3><p>Fondée en 1972 par Hamyne Abdou, transmise en 2006 à Marphour Hassan : le savoir-faire d'une famille rouennaise.</p></div>
+<div>{ico("shield")}<h3>Garantie décennale</h3><p>Vos travaux sont couverts par l'assurance décennale de Batidec.</p></div>
+<div>{ico("leaf")}<h3>Entreprise RGE</h3><p>Une qualification exigée pour que vos travaux d'isolation puissent ouvrir droit aux aides publiques, selon conditions.</p></div>
+<div>{ico("user")}<h3>Un seul interlocuteur</h3><p>{len(S)} métiers dans un même atelier : aucune coordination entre artisans à gérer.</p></div>
+<div>{ico("brush")}<h3>Chantier propre</h3><p>Sols et mobilier protégés, préparation soignée, nettoyage avant départ.</p></div>
+<div>{ico("doc")}<h3>Devis clair et gratuit</h3><p>Après visite, poste par poste, sans engagement ni surprise.</p></div>
+</div></section>
+
+<section class="avis-sec"><div class="wrap"><div class="avis-top"><div><p class="kicker">Avis clients</p><h2>4,7/5 sur 25 avis Google.</h2></div>
+<a class="btn btn-ghost" href="{MAPS}" rel="noopener">Voir tous les avis</a></div>{avis_html()}</div></section>
 
 <section class="wrap sec split">
 {figure(("u", "nuancier"), "Nuancier de couleurs et pinceau", "split-img", 1200)}
@@ -371,14 +410,16 @@ home = f'''
 <section class="wrap sec"><div class="sec-hd"><p class="kicker">Questions fréquentes</p><h2>Ce que l'on nous demande souvent.</h2></div>{faq_html(home_faq)}</section>
 {band()}'''
 page("/", "Peintre décorateur et rénovation à Rouen depuis 1972 | Batidec",
-     "Batidec, entreprise familiale à Rouen depuis 1972 : peinture, ravalement, décoration, sols, carrelage, plâtrerie, rénovation et agencement. Devis gratuit.",
+     f"Batidec, peintre décorateur à Rouen depuis 1972 ({XP} ans d'expérience) : peinture, façade, sols, rénovation, agencement. RGE, décennale, devis gratuit.",
      home, (faq_ld(home_faq),), cls="home")
 
 # ---------------- PAGES PRESTATIONS ----------------
-REP = [("Adresse", ADR), ("Création", "1972, entreprise familiale"), ("Dirigeant", "Marphour Hassan, depuis 2006"),
+AV = {"carrelage-faience-rouen": AVIS[1], "renovation-cuisine-rouen": AVIS[1], "agencement-commerce-rouen": AVIS[2], "menuiserie-dressing-verriere-rouen": AVIS[0]}
+REP = [("Adresse", ADR), ("Expérience", f"{XP} ans, entreprise familiale créée en 1972"), ("Assurance", "Garantie décennale"), ("Qualification", "Entreprise RGE"), ("Dirigeant", "Marphour Hassan, depuis 2006"),
        ("Avis Google", "4,7/5 sur 25 avis (novembre 2026)"), ("Devis", "Gratuit, après visite"), ("Horaires", "Lundi au vendredi, 9 h à 17 h")]
 for k, s in S.items():
-    secs = "".join(f"<h2>{h}</h2>{c}" for h, c in s["secs"])
+    secs1 = "".join(f"<h2>{h}</h2>{c}" for h, c in s["secs"][:1])
+    secs2 = "".join(f"<h2>{h}</h2>{c}" for h, c in s["secs"][1:])
     rows = "".join(f"<tr><th>{a}</th><td>{b}</td></tr>" for a, b in REP)
     same = [x for x in S.values() if x["uni"] == s["uni"] and x["slug"] != k]
     rel = "".join(f'<li><a href="/{x["slug"]}/">{x["name"]}</a></li>' for x in same) or ""
@@ -388,9 +429,13 @@ for k, s in S.items():
 <div><nav class="bc" aria-label="Fil d'Ariane"><a href="/">Accueil</a> / <a href="/prestations/">Prestations</a> / <span>{s["name"]}</span></nav>
 <p class="kicker">{s["uni"]} · Rouen</p><h1>{s["h1"]}</h1><p class="lead">{s["direct"]}</p>
 <div class="hero-act"><a class="btn" href="/contact/">Devis gratuit</a><a class="btn btn-ghost" href="tel:{TEL_L}">{TEL}</a></div>
-<p class="mini-proof"><b>4,7★</b> 25 avis Google · Depuis 1972 · {ADR}</p></div>
+<p class="mini-proof"><b>4,7★</b> 25 avis Google · {XP} ans d'expérience · RGE · Décennale</p></div>
 {figure(s["img"], s["h1"], "phero-img", 1200, True)}</div></section>
-<div class="wrap art"><article class="prose">{secs}
+{trust()}
+<div class="wrap art"><article class="prose">{secs1}
+<div class="cta-in"><div><b>Un projet à Rouen ?</b><span>{s["name"]} : visite et devis gratuits, {XP} ans d'expérience, garantie décennale.</span></div><a class="btn" href="/contact/">Demander mon devis</a></div>
+{secs2}
+<h2>Ce que disent nos clients</h2>{avis_html([AV[k]] if k in AV else AVIS[:1])}
 <h2>Batidec en repères</h2><table class="facts">{rows}</table>
 <h2>Questions fréquentes</h2>{faq_html(s["faq"])}
 <p class="small byline">Contenu rédigé par Batidec, entreprise familiale de Rouen dirigée par Marphour Hassan depuis 2006, formé auprès du fondateur Hamyne Abdou. Mise à jour : {DATE}.</p></article>
@@ -428,21 +473,22 @@ for n, d, fs in PROJ:
 page("/projets/", "Réalisations peinture et agencement à Rouen | Batidec",
      "Réalisations Batidec à Rouen : brasserie Le Central, bar JM's Café, salon de thé Dame Cakes, Le Lanchon Opticiens, rénovation d'intérieur.",
      f'''<section class="phero slim"><div class="wrap"><nav class="bc"><a href="/">Accueil</a> / <span>Réalisations</span></nav><p class="kicker">Portfolio</p><h1>Nos réalisations à Rouen</h1>
-<p class="lead">Commerces et intérieurs de particuliers : des chantiers réels menés par Batidec.</p></div></section><section class="wrap sec projs">{pj}</section>{band()}''',
+<p class="lead">Commerces et intérieurs de particuliers : des chantiers réels menés par Batidec.</p></div></section><section class="wrap sec projs">{pj}</section><section class="avis-sec"><div class="wrap"><div class="avis-top"><div><p class="kicker">Avis clients</p><h2>4,7/5 sur 25 avis Google.</h2></div><a class="btn btn-ghost" href="{MAPS}" rel="noopener">Voir tous les avis</a></div>{avis_html()}</div></section>{band()}''',
      (crumbs([("/", "Accueil"), ("/projets/", "Réalisations")]),), W("salle-2-rotated.jpg"))
 
 # ---------------- A PROPOS ----------------
 page("/a-propos/", "L'atelier Batidec, entreprise familiale à Rouen depuis 1972",
      "Batidec, créée en 1972 par Hamyne Abdou et dirigée depuis 2006 par Marphour Hassan : peinture, décoration, rénovation et agencement à Rouen.",
      f'''<section class="phero"><div class="wrap phero-in"><div><nav class="bc"><a href="/">Accueil</a> / <span>L'atelier</span></nav><p class="kicker">Depuis 1972</p>
-<h1>Une entreprise familiale rouennaise</h1><p class="lead">{CANON}</p></div>
+<h1>{XP} ans d'expérience, une entreprise familiale rouennaise</h1><p class="lead">{CANON}</p></div>
 {figure(("w", "120760763_620030982004693_4593063110375373801_n.jpeg"), "Locaux Batidec, 32 rue du Mail à Rouen", "phero-img", eager=True)}</div></section>
 <div class="wrap art"><article class="prose">
+<h2>Combien d'années d'expérience a Batidec ?</h2><p>Batidec a été créée en 1972 : l'entreprise compte <b>{XP} ans d'expérience</b> à Rouen. Elle est certifiée RGE et assurée en garantie décennale.</p>
 <h2>Qui a fondé Batidec ?</h2><p>Hamyne Abdou crée Batidec en 1972. Pendant plus de quarante ans, il met son savoir-faire au service des particuliers et des commerçants de Rouen.</p>
 <h2>Qui dirige Batidec aujourd'hui ?</h2><p>Marphour Hassan, formé à la peinture, à la décoration et à l'aménagement aux côtés d'Hamyne Abdou, reprend l'entreprise familiale en 2006. Il dirige aujourd'hui Batidec avec une équipe attentive aux détails.</p>
 <h2>Qui répond à votre demande ?</h2><p>Magali, chargée d'affaires, reçoit les demandes de devis et organise la visite de votre projet.</p>
 <h2>Notre engagement</h2><ul class="ticks"><li>Un travail de qualité, des finitions haut de gamme</li><li>Un interlocuteur unique du devis à la fin du chantier</li><li>Des chantiers propres et protégés</li></ul>
-<table class="facts"><tr><th>Création</th><td>1972</td></tr><tr><th>Fondateur</th><td>Hamyne Abdou</td></tr><tr><th>Dirigeant</th><td>Marphour Hassan, depuis 2006</td></tr><tr><th>Adresse</th><td>{ADR}</td></tr><tr><th>SIRET</th><td>344 914 015 00039</td></tr></table>
+<table class="facts"><tr><th>Création</th><td>1972 ({XP} ans d'expérience)</td></tr><tr><th>Assurance</th><td>Garantie décennale</td></tr><tr><th>Qualification</th><td>RGE</td></tr><tr><th>Fondateur</th><td>Hamyne Abdou</td></tr><tr><th>Dirigeant</th><td>Marphour Hassan, depuis 2006</td></tr><tr><th>Adresse</th><td>{ADR}</td></tr><tr><th>SIRET</th><td>344 914 015 00039</td></tr></table>
 </article><aside class="side"><div class="side-card sticky"><p class="ft-h">Nous rencontrer</p><p>{ADR}<br>Lun. au ven., 9 h à 17 h</p><a class="btn btn-block" href="/contact/">Demander un devis</a><a class="btn btn-ghost btn-block" href="tel:{TEL_L}">{TEL}</a></div></aside></div>{band()}''',
      (crumbs([("/", "Accueil"), ("/a-propos/", "L'atelier")]),), W("120760763_620030982004693_4593063110375373801_n.jpeg"))
 
@@ -452,7 +498,8 @@ page("/contact/", "Devis peinture et rénovation à Rouen | Contact Batidec",
      "Demandez votre devis gratuit à Batidec, 32 rue du Mail à Rouen : 02 35 72 20 31, du lundi au vendredi de 9 h à 17 h.",
      f'''<section class="phero slim"><div class="wrap"><nav class="bc"><a href="/">Accueil</a> / <span>Contact</span></nav><p class="kicker">Devis gratuit</p><h1>Contacter Batidec à Rouen</h1>
 <p class="lead">Décrivez votre projet : Magali, chargée d'affaires, vous recontacte pour organiser la visite. Le devis est gratuit et sans engagement.</p></div></section>
-<div class="wrap art"><form class="form" id="devis" novalidate>
+{trust()}
+<div class="wrap art"><form class="form" id="devis" data-mailto novalidate>
 <div class="f2"><label>Nom<input name="nom" required autocomplete="name"></label><label>Téléphone<input name="tel" type="tel" required autocomplete="tel"></label></div>
 <label>E-mail<input name="email" type="email" autocomplete="email"></label>
 <label>Votre projet<select name="type">{opts}<option>Autre</option></select></label>
@@ -461,7 +508,9 @@ page("/contact/", "Devis peinture et rénovation à Rouen | Contact Batidec",
 <button class="btn" type="submit">Envoyer ma demande</button>
 <p class="small" id="fmsg">Votre messagerie s'ouvre avec la demande pré-remplie, adressée à {MAIL}. Vous pouvez aussi appeler le <a href="tel:{TEL_L}">{TEL}</a>.</p></form>
 <aside class="side"><div class="side-card"><p class="ft-h">Coordonnées</p><address>Batidec<br>{ADR}<br><a href="tel:{TEL_L}">{TEL}</a><br><a href="mailto:{MAIL}">{MAIL}</a></address>
-<p>Lundi au vendredi<br>9 h 00 à 17 h 00</p><a class="link" href="{MAPS}" rel="noopener">Itinéraire Google Maps</a></div></aside></div>''',
+<p>Lundi au vendredi<br>9 h 00 à 17 h 00</p><a class="link" href="{MAPS}" rel="noopener">Itinéraire Google Maps</a></div>
+<div class="side-card"><p class="ft-h">Avis Google</p><p><b>4,7/5</b> sur 25 avis</p><blockquote class="sq">« {AVIS[0][2]} »</blockquote><p class="small">{AVIS[0][0]}</p></div></aside></div>
+<div class="wrap"><iframe class="map" title="Batidec, 32 rue du Mail à Rouen sur Google Maps" loading="lazy" src="https://www.google.com/maps?q=Batidec,32+rue+du+Mail,+76100+Rouen&output=embed"></iframe></div>''',
      (crumbs([("/", "Accueil"), ("/contact/", "Contact")]),))
 
 page("/mentions-legales/", "Mentions légales | Batidec, peintre décorateur à Rouen",
@@ -469,14 +518,14 @@ page("/mentions-legales/", "Mentions légales | Batidec, peintre décorateur à 
      f'''<section class="phero slim"><div class="wrap"><h1>Mentions légales</h1></div></section><div class="wrap prose sec">
 <p><b>Éditeur</b> : Batidec, {ADR}. SIRET 344 914 015 00039. Téléphone {TEL}. E-mail {MAIL}. Directeur de la publication : Marphour Hassan.</p>
 <p><b>Hébergement</b> : Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis.</p>
-<p><b>Photos</b> : les photos marquées « Réalisation Batidec » montrent des chantiers réels ; les photos marquées « Photo d'illustration » proviennent d'Unsplash (licence Unsplash).</p>
+<p><b>Photos</b> : les photos marquées « Réalisation Batidec » montrent des chantiers réels ; les autres photos d'ambiance proviennent d'Unsplash (licence Unsplash).</p>
 <p><b>Données personnelles</b> : les informations envoyées via le formulaire servent uniquement à répondre à votre demande de devis.</p></div>''')
 
 # ---------------- technique ----------------
 (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     + "".join(f"<url><loc>{SITE}{p}</loc><lastmod>2026-11-18</lastmod></url>" for p in PAGES) + "</urlset>\n")
-(OUT / "llms.txt").write_text(f"# Batidec\n\n> {CANON}\n\n- Adresse : {ADR}\n- Téléphone : {TEL}\n- Horaires : lundi au vendredi, 9 h à 17 h\n- Création : 1972 (Hamyne Abdou) ; dirigeant depuis 2006 : Marphour Hassan\n- Avis Google : 4,7/5 sur 25 avis (novembre 2026)\n\n## Prestations\n"
+(OUT / "llms.txt").write_text(f"# Batidec\n\n> {CANON}\n\n- Adresse : {ADR}\n- Téléphone : {TEL}\n- Horaires : lundi au vendredi, 9 h à 17 h\n- Création : 1972 (Hamyne Abdou) ; dirigeant depuis 2006 : Marphour Hassan\n- Avis Google : 4,7/5 sur 25 avis (novembre 2026)\n- Certifications : entreprise RGE, garantie décennale\n- Expérience : {XP} ans (depuis 1972)\n\n## Prestations\n"
     + "".join(f"- [{s['name']}]({SITE}/{k}/) : {s['short']}\n" for k, s in S.items()))
 (OUT / "_redirects").write_text("/project/* /projets/ 301\n")
 print("ok", len(PAGES), "pages")
