@@ -283,7 +283,7 @@ def header(path):
 def band():
     return trust("trust-dark") + f'''<section class="band"><div class="wrap band-in">
 <div><p class="kicker">Un projet à Rouen ?</p><h2>Parlons de vos murs, de vos sols ou de votre commerce.</h2>
-<p>{XP} ans d'expérience, garantie décennale, entreprise RGE. Visite et devis gratuits : Magali, chargée d'affaires, vous répond du lundi au vendredi.</p></div>
+<p>{XP} ans d'expérience, garantie décennale, entreprise RGE. Visite et devis gratuits, réponse du lundi au vendredi.</p></div>
 <div class="band-act"><a class="btn btn-light" href="/contact/">Demander un devis</a><a class="btn btn-line" href="tel:{TEL_L}">{TEL}</a></div></div></section>'''
 
 def footer():
@@ -309,7 +309,7 @@ def page(path, title, desc, body, lds=(), og=None, cls=""):
 <meta name="theme-color" content="#14201f">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=6">
+<link rel="stylesheet" href="/styles.css?v=7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232f7178'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='20' fill='%23f6f1e8' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 {ld(LOCAL, *lds)}</head><body class="{cls}">{header(path)}<main id="main">{body}</main>{footer()}</body></html>'''
     d = OUT / path.strip("/")
@@ -353,9 +353,10 @@ home = f'''
 <p class="lead">Peinture, façades, décoration, sols, rénovation et agencement de commerces. Garantie décennale, entreprise RGE, un seul interlocuteur du devis aux finitions.</p>
 <div class="hero-act"><a class="btn btn-light" href="/contact/">Devis gratuit</a><a class="btn btn-line" href="tel:{TEL_L}">{TEL}</a></div>
 </div>
-<form class="qf" data-mailto novalidate><p class="qf-h">Devis gratuit</p><p class="qf-s">Magali, chargée d'affaires, vous rappelle du lundi au vendredi.</p>
-<input name="nom" placeholder="Votre nom" required autocomplete="name" aria-label="Votre nom"><input name="tel" type="tel" placeholder="Votre téléphone" required autocomplete="tel" aria-label="Votre téléphone">
-<select name="type" aria-label="Votre projet">{"".join(f"<option>{x['name']}</option>" for x in S.values())}<option>Autre</option></select>
+<form class="qf" data-mailto novalidate><p class="qf-h">Devis gratuit</p><p class="qf-s">Batidec vous rappelle du lundi au vendredi pour organiser la visite.</p>
+<div class="fl"><input id="qn" name="nom" placeholder=" " required autocomplete="name"><label for="qn">Votre nom</label></div>
+<div class="fl"><input id="qt" name="tel" type="tel" placeholder=" " required autocomplete="tel"><label for="qt">Votre téléphone</label></div>
+<div class="fl fl-sel"><select id="qp" name="type">{"".join(f"<option>{x['name']}</option>" for x in S.values())}<option>Autre</option></select><label for="qp">Votre projet</label></div>
 <input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><input type="hidden" name="msg" value="Demande de rappel envoyée depuis l'accueil du site.">
 <button class="btn btn-block" type="submit">Être rappelé gratuitement</button><p class="qf-or">ou appelez le <a href="tel:{TEL_L}">{TEL}</a></p><p class="qf-m small"></p></form>
 </div>
@@ -396,7 +397,7 @@ home = f'''
 <a class="link" href="/decoration-interieur-rouen/">Décoration intérieure à Rouen</a></div></section>
 
 <section class="wrap sec"><div class="sec-hd"><p class="kicker">Comment ça se passe</p><h2>De votre appel à la remise des clés.</h2></div>
-<ol class="steps"><li><b>Appel ou message</b><span>Vous décrivez votre projet à Magali, notre chargée d'affaires.</span></li>
+<ol class="steps"><li><b>Appel ou message</b><span>Vous nous décrivez votre projet par téléphone ou via le formulaire.</span></li>
 <li><b>Visite sur place</b><span>Mesures, état des supports, envies de couleurs.</span></li>
 <li><b>Devis détaillé</b><span>Gratuit, poste par poste, sans engagement.</span></li>
 <li><b>Chantier soigné</b><span>Protection, préparation, finitions, nettoyage.</span></li></ol></section>
@@ -486,7 +487,7 @@ page("/a-propos/", "L'atelier Batidec, entreprise familiale à Rouen depuis 1972
 <h2>Combien d'années d'expérience a Batidec ?</h2><p>Batidec a été créée en 1972 : l'entreprise compte <b>{XP} ans d'expérience</b> à Rouen. Elle est certifiée RGE et assurée en garantie décennale.</p>
 <h2>Qui a fondé Batidec ?</h2><p>Hamyne Abdou crée Batidec en 1972. Pendant plus de quarante ans, il met son savoir-faire au service des particuliers et des commerçants de Rouen.</p>
 <h2>Qui dirige Batidec aujourd'hui ?</h2><p>Marphour Hassan, formé à la peinture, à la décoration et à l'aménagement aux côtés d'Hamyne Abdou, reprend l'entreprise familiale en 2006. Il dirige aujourd'hui Batidec avec une équipe attentive aux détails.</p>
-<h2>Qui répond à votre demande ?</h2><p>Magali, chargée d'affaires, reçoit les demandes de devis et organise la visite de votre projet.</p>
+<h2>Comment se passe une demande de devis ?</h2><p>Vous appelez ou envoyez votre demande ; Batidec vous recontacte pour organiser la visite gratuite, puis vous remet un devis détaillé.</p>
 <h2>Notre engagement</h2><ul class="ticks"><li>Un travail de qualité, des finitions haut de gamme</li><li>Un interlocuteur unique du devis à la fin du chantier</li><li>Des chantiers propres et protégés</li></ul>
 <table class="facts"><tr><th>Création</th><td>1972 ({XP} ans d'expérience)</td></tr><tr><th>Assurance</th><td>Garantie décennale</td></tr><tr><th>Qualification</th><td>RGE</td></tr><tr><th>Fondateur</th><td>Hamyne Abdou</td></tr><tr><th>Dirigeant</th><td>Marphour Hassan, depuis 2006</td></tr><tr><th>Adresse</th><td>{ADR}</td></tr><tr><th>SIRET</th><td>344 914 015 00039</td></tr></table>
 </article><aside class="side"><div class="side-card sticky"><p class="ft-h">Nous rencontrer</p><p>{ADR}<br>Lun. au ven., 9 h à 17 h</p><a class="btn btn-block" href="/contact/">Demander un devis</a><a class="btn btn-ghost btn-block" href="tel:{TEL_L}">{TEL}</a></div></aside></div>{band()}''',
@@ -497,19 +498,30 @@ opts = "".join(f"<option>{s['name']}</option>" for s in S.values())
 page("/contact/", "Devis peinture et rénovation à Rouen | Contact Batidec",
      "Demandez votre devis gratuit à Batidec, 32 rue du Mail à Rouen : 02 35 72 20 31, du lundi au vendredi de 9 h à 17 h.",
      f'''<section class="phero slim"><div class="wrap"><nav class="bc"><a href="/">Accueil</a> / <span>Contact</span></nav><p class="kicker">Devis gratuit</p><h1>Contacter Batidec à Rouen</h1>
-<p class="lead">Décrivez votre projet : Magali, chargée d'affaires, vous recontacte pour organiser la visite. Le devis est gratuit et sans engagement.</p></div></section>
+<p class="lead">Décrivez votre projet en une minute : Batidec vous recontacte pour organiser la visite. Le devis est gratuit et sans engagement.</p></div></section>
 {trust()}
-<div class="wrap art"><form class="form" id="devis" data-mailto novalidate>
-<div class="f2"><label>Nom<input name="nom" required autocomplete="name"></label><label>Téléphone<input name="tel" type="tel" required autocomplete="tel"></label></div>
-<label>E-mail<input name="email" type="email" autocomplete="email"></label>
-<label>Votre projet<select name="type">{opts}<option>Autre</option></select></label>
-<label>Détails (surface, adresse, délai souhaité)<textarea name="msg" rows="5" required></textarea></label>
+<section class="wrap ct">
+<aside class="ct-side"><p class="kicker kl">Batidec · depuis 1972</p><h2>Parlons de votre projet.</h2>
+<p class="ct-intro">{XP} ans d'expérience à Rouen, garantie décennale, entreprise RGE.</p>
+<a class="ct-tel" href="tel:{TEL_L}">{ico("user")}<span><small>Appelez-nous</small>{TEL}</span></a>
+<ul class="ct-list"><li>{ico("doc")}<span><small>E-mail</small><a href="mailto:{MAIL}">{MAIL}</a></span></li>
+<li>{ico("shield")}<span><small>Adresse</small>{ADR}</span></li>
+<li>{ico("clock")}<span><small>Horaires</small>Lundi au vendredi, 9 h à 17 h</span></li></ul>
+<figure class="ct-av"><div class="stars">★★★★★</div><blockquote>« {AVIS[0][2]} »</blockquote><figcaption>{AVIS[0][0]} · avis Google · 4,7/5 sur 25 avis</figcaption></figure>
+</aside>
+<form class="ct-form" id="devis" data-mailto novalidate>
+<p class="ct-step"><span>1</span>Votre projet</p>
+<div class="chips">{"".join(f'<label class="chip"><input type="radio" name="type" value="{u}"{" checked" if i == 0 else ""}><span>{u}</span></label>' for i, (u, _, _) in enumerate(UNIS))}<label class="chip"><input type="radio" name="type" value="Autre"><span>Autre</span></label></div>
+<p class="ct-step"><span>2</span>Vos coordonnées</p>
+<div class="f2"><div class="fl"><input id="cn" name="nom" placeholder=" " required autocomplete="name"><label for="cn">Nom et prénom</label></div>
+<div class="fl"><input id="ct" name="tel" type="tel" placeholder=" " required autocomplete="tel"><label for="ct">Téléphone</label></div></div>
+<div class="fl"><input id="ce" name="email" type="email" placeholder=" " autocomplete="email"><label for="ce">E-mail (facultatif)</label></div>
+<p class="ct-step"><span>3</span>Votre message</p>
+<div class="fl"><textarea id="cm" name="msg" rows="5" placeholder=" " required></textarea><label for="cm">Surface, adresse du chantier, délai souhaité…</label></div>
 <input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
-<button class="btn" type="submit">Envoyer ma demande</button>
-<p class="small" id="fmsg">Votre messagerie s'ouvre avec la demande pré-remplie, adressée à {MAIL}. Vous pouvez aussi appeler le <a href="tel:{TEL_L}">{TEL}</a>.</p></form>
-<aside class="side"><div class="side-card"><p class="ft-h">Coordonnées</p><address>Batidec<br>{ADR}<br><a href="tel:{TEL_L}">{TEL}</a><br><a href="mailto:{MAIL}">{MAIL}</a></address>
-<p>Lundi au vendredi<br>9 h 00 à 17 h 00</p><a class="link" href="{MAPS}" rel="noopener">Itinéraire Google Maps</a></div>
-<div class="side-card"><p class="ft-h">Avis Google</p><p><b>4,7/5</b> sur 25 avis</p><blockquote class="sq">« {AVIS[0][2]} »</blockquote><p class="small">{AVIS[0][0]}</p></div></aside></div>
+<button class="btn btn-block btn-lg" type="submit">Envoyer ma demande de devis <span aria-hidden="true">→</span></button>
+<p class="ct-note" id="fmsg">Gratuit et sans engagement. Vos informations servent uniquement à vous répondre.</p>
+</form></section>
 <div class="wrap"><iframe class="map" title="Batidec, 32 rue du Mail à Rouen sur Google Maps" loading="lazy" src="https://www.google.com/maps?q=Batidec,32+rue+du+Mail,+76100+Rouen&output=embed"></iframe></div>''',
      (crumbs([("/", "Accueil"), ("/contact/", "Contact")]),))
 
